@@ -1,5 +1,6 @@
 ﻿using AddressBook_CSV_JSON;
 using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -95,11 +96,11 @@ namespace AddressBook_CSV_JSON
             }
         }
         //writing contacts in CSV file
-        public static void WriteDataUsingCSV()
+        public static void WriteDataUsingCSV(string Filepath)
         {
             try
             {
-                string Filepath = @"D:\bridzlabz\AddressBook_CSV&JSON\AddressBook_CSV_JSON\CSVFile.csv";
+                 Filepath = @"D:\bridzlabz\AddressBook_CSV&JSON\AddressBook_CSV_JSON\CSVFile.csv";
 
                 using (CsvWriter sw = new CsvWriter(new StreamWriter(Filepath), CultureInfo.InvariantCulture))
                 {
@@ -114,13 +115,13 @@ namespace AddressBook_CSV_JSON
             }
         }
         //reading contacts using CSVReader
-        public static void ReadDataUsingCSV()
+        public static void ReadDataUsingCSV(string FilePath)
         {
             try
             {
-                string Filepath = @"D:\bridzlabz\AddressBook_CSV&JSON\AddressBook_CSV_JSON\CSVFile.csv";
+                 FilePath = @"D:\bridzlabz\AddressBook_CSV&JSON\AddressBook_CSV_JSON\CSVFile.csv";
 
-                using (CsvReader sw = new CsvReader(new StreamReader(Filepath), CultureInfo.InvariantCulture))
+                using (CsvReader sw = new CsvReader(new StreamReader(FilePath), CultureInfo.InvariantCulture))
                 {
                     var Record = sw.GetRecords<Contacts>();
                     foreach (var data in Record)
@@ -142,5 +143,41 @@ namespace AddressBook_CSV_JSON
                 new Exception(f.FileName);
             }
         }
+        // Writing data using JSON File
+        public static void WriteDataUsingJSON(string filepath)
+        {
+            try
+            {
+                string jsonString = System.Text.Json.JsonSerializer.Serialize(add);
+                File.WriteAllText(filepath, jsonString);
+            }
+            catch (FileNotFoundException f)
+            {
+                new Exception(f.FileName);
+            }
+        }
+        //Reading Data using JSON
+        public static void ReadJson(string filePath)
+        {
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                var jsonobject = reader.ReadToEnd();
+                add = JsonConvert.DeserializeObject<List<Contacts>>(jsonobject);
+                foreach (Contacts item in add)
+                {
+                    Console.WriteLine("**************** Address Book ********************");
+                    Console.WriteLine("First Name:" + item.Firstname);
+                    Console.WriteLine("Last Name:" + item.Lastname);
+                    Console.WriteLine("Address:" + item.Address);
+                    Console.WriteLine("City:" + item.City);
+                    Console.WriteLine("State:" + item.State);
+                    Console.WriteLine("Zipcode:" + item.Zipcode);
+                    Console.WriteLine("Pincode:" + item.Pincode);
+                    Console.WriteLine("*********************************\n");
+                }
+            }
+        }
     }
 }
+
+  

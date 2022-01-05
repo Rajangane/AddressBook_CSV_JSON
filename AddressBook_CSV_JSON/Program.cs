@@ -7,7 +7,7 @@ int count = 0;//counter to break the while loop
 
 while (count == 0)
 {
-    Console.Write("Select Number:\n1)AddContacts\n2)SearchCityState\n3)WriteData\n4)WriteDataUsingCSV\n5)ReadDataUsingCSV");
+    Console.Write("Select Number:\n1)AddContacts\n2)SearchCityState\n3)WriteData\n4)ReadWriteDataUsingCSV\n5)RaadWriteUsingJSON");
     int option = Convert.ToInt32(Console.ReadLine());
     switch (option)
     {
@@ -22,11 +22,16 @@ while (count == 0)
         case 3:
             Operations.WriteData();
             break;
+        
         case 4:
-            Operations.WriteDataUsingCSV();
+            string Filepath = @"D:\bridzlabz\AddressBook_CSV&JSON\AddressBook_CSV_JSON\CSVFile.csv";
+            Operations.WriteDataUsingCSV(Filepath);
+            Operations.ReadDataUsingCSV(Filepath);
             break;
-        case 5:
-            Operations.ReadDataUsingCSV();
+         case 5:
+            string fileName = @"D:\bridzlabz\AddressBook_CSV&JSON\AddressBook_CSV_JSON\JSONFile.json";
+            Operations.WriteDataUsingJSON(fileName);
+            Operations.ReadJson(fileName);
             break;
 
         default:
