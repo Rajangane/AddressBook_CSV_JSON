@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AddressBook_CSV_JSON
-{
+
+{ 
+    [Serializable]
+  
     public class Contacts
     {
         public string Firstname { get; set; }
