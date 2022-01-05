@@ -42,7 +42,7 @@ namespace AddressBook_CSV_JSON
 
             foreach (var con in add)
             {
-                Console.WriteLine("****************** Peoples In address book ********************");
+                Console.WriteLine("****************** Peoples In address book Are ********************");
                 Console.WriteLine("First Name:" + con.Firstname);
                 Console.WriteLine("Last Name:" + con.Lastname);
                 Console.WriteLine("Address:" + con.Address);
@@ -50,6 +50,21 @@ namespace AddressBook_CSV_JSON
                 Console.WriteLine("State:" + con.State);
                 Console.WriteLine("Zipcode:" + con.Zipcode);
                 Console.WriteLine("Pincode:" + con.Pincode);
+                Console.WriteLine("-----------------------------------------------------------");
+            }
+        }
+        public void SearchByCityState()
+        {
+            Console.WriteLine("*************** Searching ***********");
+            Console.WriteLine("Enter City");
+            string city = Console.ReadLine();
+            Console.WriteLine("Enter state");
+            string state = Console.ReadLine();
+            var lists = add.FindAll(x => (x.City == city && x.State == state));
+            Console.WriteLine($"**************** Peoples In {city} and {state} ********************");
+            foreach (Contacts cont in lists)
+            {
+                Console.WriteLine("First Name:" + cont.Firstname);
                 Console.WriteLine("-----------------------------------------------------------");
             }
         }
